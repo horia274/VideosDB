@@ -114,6 +114,42 @@ public final class Main {
                     message = user.giveRatingToVideo(action.getTitle(), action.getSeasonNumber(), action.getGrade());
                 }
             }
+
+            if (action.getActionType().equals(Constants.QUERY)) {
+                if (action.getObjectType().equals(Constants.MOVIES)
+                        || action.getObjectType().equals(Constants.SHOWS)) {
+                    List<String> actionYears = action.getFilters().get(0);
+                    List<String> actionGenres = action.getFilters().get(1);
+                    List<ShowInput> filteredMovies;
+
+                    if (action.getObjectType().equals(Constants.MOVIES)) {
+                        filteredMovies = MovieInputData.computeShowsByYearAndGenres(movies, actionYears, actionGenres);
+                    } else {
+                        filteredMovies = SerialInputData.computeShowsByYearAndGenres(serials, actionYears, actionGenres);
+                    }
+
+                    if (action.getCriteria().equals(Constants.LONGEST)) {
+                        ShowInput.sortVideosByDuration(filteredMovies, action.getSortType());
+                    }
+
+                    if (action.getCriteria().equals(Constants.FAVORITE)) {
+                        ShowInput.computeCountFavoriteForArray(filteredMovies, users);
+                        ShowInput.sortVideosByFavorites(filteredMovies, action.getSortType());
+                    }
+
+                    if (action.getCriteria().equals(Constants.MOST_VIEWED)) {
+                        ShowInput.computeCountViewsForArray(filteredMovies, users);
+                        MovieInputData.sortVideosByViews(filteredMovies, action.getSortType());
+                    }
+
+                    if (action.getCriteria().equals(Constants.RATINGS)) {
+                        ShowInput.computeRatingForArray(filteredMovies, users);
+                        ShowInput.sortVideosByRating(filteredMovies, action.getSortType());
+                    }
+
+                    message = MovieInputData.giveMessage(filteredMovies, action.getNumber());
+                }
+            }
             arrayResult.add(fileWriter.writeFile(action.getActionId(), message));
         }
         fileWriter.closeJSON(arrayResult);

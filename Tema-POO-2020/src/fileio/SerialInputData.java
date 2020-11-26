@@ -53,4 +53,33 @@ public final class SerialInputData extends ShowInput {
                 + ", seasons=" + seasons + " rating= "
                 + rating + "\n\n" + '}';
     }
+
+    /**
+     * Find serials which have year and genre from two given lists
+     * @param serials list of serials
+     * @param years list of years
+     * @param genres list of genres
+     * @return a List object
+     */
+    public static List<ShowInput> computeShowsByYearAndGenres(final List<SerialInputData> serials,
+                                                              final List<String> years,
+                                                              final List<String> genres) {
+        List<ShowInput> filteredShows = new ArrayList<>();
+        for (SerialInputData show : serials) {
+            if ((years.contains(null) || years.contains(String.valueOf(show.getYear())))
+                    && (genres.contains(null) || show.getGenres().containsAll(genres))) {
+                filteredShows.add(show);
+            }
+        }
+        return filteredShows;
+    }
+
+    @Override
+    public void computeRating(final List<UserInputData> users) {
+        double sumRating = 0;
+        for (Season season : seasons) {
+            sumRating += season.computeRating(this.getTitle(), users);
+        }
+        rating = sumRating / numberOfSeasons;
+    }
 }
