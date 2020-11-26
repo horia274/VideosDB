@@ -155,6 +155,36 @@ public final class Main {
                     UserInputData.sortUsersByRatings(sortedUsers, action.getSortType());
                     message = UserInputData.giveMessage(sortedUsers, action.getNumber());
                 }
+
+                if (action.getObjectType().equals(Constants.ACTORS)) {
+                    if (action.getCriteria().equals(Constants.AVERAGE)) {
+                        List<ShowInput> shows;
+                        shows = ShowInput.combineShows(movies, serials);
+                        ShowInput.computeRatingForArray(shows, users);
+
+                        List<ActorInputData> sortedActors = new ArrayList<>(actors);
+                        ActorInputData.computeRatingForArray(sortedActors, shows);
+                        ActorInputData.sortActorsByRatings(sortedActors, action.getSortType());
+                        message = ActorInputData.giveMessage(sortedActors, action.getNumber());
+                    }
+
+                    if (action.getCriteria().equals(Constants.AWARDS)) {
+                        List<ActorsAwards> awards;
+                        awards = Utils.stringToAwardsForArray(action.getFilters().get(3));
+
+                        List<ActorInputData> actorsWithAwards;
+                        actorsWithAwards = ActorInputData.getActorsWithAwards(actors, awards);
+                        ActorInputData.sortActorsByAwards(actorsWithAwards, action.getSortType());
+                        message = ActorInputData.giveMessage(actorsWithAwards, actorsWithAwards.size());
+                    }
+
+                    if (action.getCriteria().equals(Constants.FILTER_DESCRIPTIONS)) {
+                        List<String> words = action.getFilters().get(2);
+                        List<ActorInputData> actorsWithDescription = ActorInputData.getActorsWithDescription(actors, words);
+                        ActorInputData.sortActorsByName(actorsWithDescription, action.getSortType());
+                        message = ActorInputData.giveMessage(actorsWithDescription, actorsWithDescription.size());
+                    }
+                }
             }
             arrayResult.add(fileWriter.writeFile(action.getActionId(), message));
         }
