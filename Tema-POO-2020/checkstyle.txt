@@ -1,0 +1,19 @@
+Starting audit...
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/SerialInputData.java:6:8: Unused import - java.util.List. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/ShowInput.java:3:8: Unused import - common.Constants. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/ShowInput.java:5:8: Unused import - java.util.List. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/ShowInput.java:7:8: Unused import - java.util.Map. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/ShowInput.java:8:8: Unused import - java.util.HashMap. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/ActorInputData.java:4:8: Unused import - common.Constants. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/ActorInputData.java:5:8: Unused import - java.util.List. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/ActorInputData.java:8:8: Unused import - java.util.Collections. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/MovieInputData.java:3:8: Unused import - java.util.List. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/fileio/MovieInputData.java:5:8: Unused import - java.util.Map. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:3:8: Unused import - actor.ActorsAwards. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:13:8: Unused import - fileio.ShowInput. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:19:8: Unused import - utils.Utils. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:27:8: Unused import - java.util.ArrayList. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:28:8: Unused import - java.util.Map. [UnusedImports]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:114: Line is longer than 100 characters (found 117). [LineLength]
+Audit done.
+Checkstyle ends with 16 errors.
