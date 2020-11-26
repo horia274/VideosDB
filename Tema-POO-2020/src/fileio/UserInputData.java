@@ -212,4 +212,43 @@ public final class UserInputData {
         stringBuilder.append("]");
         return stringBuilder.toString();
     }
+
+    /**
+     * Find first video from a given list of shows that
+     * does not appear in history of the current user
+     *
+     * @param shows list of shows
+     * @return String, first video
+     */
+    public String firstVideoUnseen(final List<ShowInput> shows) {
+        for (ShowInput show : shows) {
+            if (!history.containsKey(show.getTitle())) {
+                return Constants.RES_STANDARD + show.getTitle();
+            }
+        }
+        return Constants.NO_STANDARD;
+    }
+
+    /**
+     * Choose the best video unseen using a list of sorted shows
+     * If all shows from this list are seen, take the first video unseen
+     * from a list of shows from database (program input)
+     *
+     * @param sortedShows list of sorted shows (by rating)
+     * @param shows list of all shows
+     * @return String, best video
+     */
+    public String bestVideoUnseen(final List<ShowInput> sortedShows, final List<ShowInput> shows) {
+        for (ShowInput show : sortedShows) {
+            if (!history.containsKey(show.getTitle())) {
+                return Constants.RES_BEST_UNSEEN + show.getTitle();
+            }
+        }
+        for (ShowInput show : shows) {
+            if (!history.containsKey(show.getTitle())) {
+                return Constants.RES_BEST_UNSEEN + show.getTitle();
+            }
+        }
+        return Constants.NO_BEST_UNSEEN;
+    }
 }

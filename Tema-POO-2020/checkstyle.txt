@@ -10,5 +10,7 @@ Starting audit...
 [ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:183: Line is longer than 100 characters (found 124). [LineLength]
 [ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:184: Line is longer than 100 characters (found 101). [LineLength]
 [ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:185: Line is longer than 100 characters (found 114). [LineLength]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:195: Line is longer than 100 characters (found 101). [LineLength]
+[ERROR] /home/horia/facultate/an II/sem 1/poo/VideosDB/Tema-POO-2020/./src/main/Main.java:207: Line is longer than 100 characters (found 101). [LineLength]
 Audit done.
-Checkstyle ends with 11 errors.
+Checkstyle ends with 13 errors.

@@ -186,6 +186,32 @@ public final class Main {
                     }
                 }
             }
+
+            if (action.getActionType().equals(Constants.RECOMMENDATION)) {
+                List<ShowInput> shows;
+                shows = ShowInput.combineShows(movies, serials);
+
+                if (action.getType().equals(Constants.STANDARD)) {
+                    UserInputData user = UserInputData.containsUsername(users, action.getUsername());
+                    if (user != null) {
+                        message = user.firstVideoUnseen(shows);
+                    } else {
+                        message = Constants.NO_STANDARD;
+                    }
+                }
+
+                if (action.getType().equals(Constants.BEST_UNSEEN)) {
+                    ShowInput.computeRatingForArray(shows, users);
+                    List<ShowInput> sortedShows = new ArrayList<>(shows);
+                    ShowInput.sortVideosByRating(sortedShows, shows, Constants.DESC);
+                    UserInputData user = UserInputData.containsUsername(users, action.getUsername());
+                    if (user != null) {
+                        message = user.bestVideoUnseen(sortedShows, shows);
+                    } else {
+                        message = Constants.NO_BEST_UNSEEN;
+                    }
+                }
+            }
             arrayResult.add(fileWriter.writeFile(action.getActionId(), message));
         }
         fileWriter.closeJSON(arrayResult);
