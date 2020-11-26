@@ -149,6 +149,12 @@ public final class Main {
 
                     message = MovieInputData.giveMessage(filteredMovies, action.getNumber());
                 }
+
+                if (action.getObjectType().equals(Constants.USERS)) {
+                    List<UserInputData> sortedUsers = new ArrayList<>(users);
+                    UserInputData.sortUsersByRatings(sortedUsers, action.getSortType());
+                    message = UserInputData.giveMessage(sortedUsers, action.getNumber());
+                }
             }
             arrayResult.add(fileWriter.writeFile(action.getActionId(), message));
         }
