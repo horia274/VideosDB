@@ -251,4 +251,78 @@ public final class UserInputData {
         }
         return Constants.NO_BEST_UNSEEN;
     }
+
+    /**
+     * Find the first video unseen from the most popular genre (most views)
+     *
+     * @param genresWithShows map from a genre to all shows that contains that genre
+     * @param popularGenres all genres sorted by number of total views (popularity)
+     * @return String, popular video
+     */
+    public String popularVideoForGenre(final Map<String, List<String>> genresWithShows,
+                                       final List<String> popularGenres) {
+        for (String popularGenre : popularGenres) {
+            List<String> showsOfGenre = genresWithShows.get(popularGenre);
+            for (String show : showsOfGenre) {
+                if (!history.containsKey(show)) {
+                    return Constants.RES_POPULAR + show;
+                }
+            }
+        }
+        return Constants.NO_POPULAR;
+    }
+
+    /**
+     * Find the first video unseen from a list of sorted shows based on favorite criteria
+     * (how many times a current show appear in a list of users)
+     *
+     * @param sortedShows list of sorted shows (by favorite)
+     * @param shows list of all shows
+     * @return String, favorite video
+     */
+    public String favoriteVideoUnseen(final List<ShowInput> sortedShows,
+                                      final List<ShowInput> shows) {
+        for (ShowInput show : sortedShows) {
+            if (!history.containsKey(show.getTitle())) {
+                return Constants.RES_FAVORITE + show.getTitle();
+            }
+        }
+        for (ShowInput show : shows) {
+            if (!history.containsKey(show.getTitle())) {
+                return Constants.RES_FAVORITE + show.getTitle();
+            }
+        }
+        return Constants.NO_FAVORITE;
+    }
+
+    /**
+     * Find all videos from a specific genre that are not seen by current user
+     * (list is also sorted by rating)
+     *
+     * @param showsOfGenre list of shows from a specific genre
+     * @return String, list of all found videos
+     */
+    public String searchVideosOfGenre(final List<ShowInput> showsOfGenre) {
+        StringBuilder stringBuilder = new StringBuilder();
+        List<ShowInput> unseenShowsOfGenre = new ArrayList<>();
+
+        for (ShowInput show : showsOfGenre) {
+            if (!history.containsKey(show.getTitle())) {
+                unseenShowsOfGenre.add(show);
+            }
+        }
+
+        if (!unseenShowsOfGenre.isEmpty()) {
+            stringBuilder.append(Constants.RES_SEARCH);
+            stringBuilder.append("[");
+            stringBuilder.append(unseenShowsOfGenre.get(0).getTitle());
+            for (int i = 1; i < unseenShowsOfGenre.size(); i++) {
+                stringBuilder.append(", ");
+                stringBuilder.append(unseenShowsOfGenre.get(i).getTitle());
+            }
+            stringBuilder.append("]");
+            return stringBuilder.toString();
+        }
+        return Constants.NO_SEARCH;
+    }
 }

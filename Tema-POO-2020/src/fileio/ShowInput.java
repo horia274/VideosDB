@@ -357,4 +357,104 @@ public abstract class ShowInput {
         shows.addAll(serials);
         return shows;
     }
+
+    /**
+     * Compute the popularity of each genre of show
+     * Take any genre from a list of shows and map it to the number of total views
+     * of the shows that contains that genre
+     * Views are given from a list of users
+     *
+     * @param shows list of shows
+     * @param users list of users
+     * @return List Object
+     * first element from list: map from each genre to a list of shows that contains that genre
+     * second element from list: list of genres sorted by popularity (number of total views)
+     */
+    public static List<Object> computePopularGenres(final List<ShowInput> shows,
+                                                    final List<UserInputData> users) {
+        Map<String, Integer> popularGenres = new HashMap<>();
+        Map<String, List<String>> genresWithShows = new HashMap<>();
+
+        for (ShowInput show : shows) {
+            for (String genre : show.getGenres()) {
+                if (!popularGenres.containsKey(genre)) {
+                    popularGenres.put(genre, 0);
+                }
+                if (!genresWithShows.containsKey(genre)) {
+                    genresWithShows.put(genre, new ArrayList<>() {{
+                        add(show.getTitle());
+                    }});
+                } else {
+                    List<String> titleShows = genresWithShows.get(genre);
+                    if (!titleShows.contains(show.getTitle())) {
+                        titleShows.add(show.getTitle());
+                        genresWithShows.put(genre, titleShows);
+                    }
+                }
+            }
+            for (UserInputData user : users) {
+                if (user.getHistory().containsKey(show.getTitle())) {
+                    for (String genre : show.getGenres()) {
+                        popularGenres.put(genre,
+                                popularGenres.get(genre) + user.getHistory().get(show.getTitle()));
+                    }
+                }
+            }
+        }
+
+        List<Map.Entry<String, Integer>> listPopularGenres;
+        listPopularGenres = new ArrayList<>(popularGenres.entrySet());
+
+        listPopularGenres.sort((o1, o2) -> o2.getValue() - o1.getValue());
+        List<String> listNameOfPopularGenres = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> genre : listPopularGenres) {
+            listNameOfPopularGenres.add(genre.getKey());
+        }
+
+        return new ArrayList<>() {{
+            add(genresWithShows);
+            add(listNameOfPopularGenres);
+        }};
+    }
+
+    /**
+     * Find all shows from a given genre and sort them by rating
+     *
+     * @param shows list of shows
+     * @param genre current genre
+     * @param users list of users, to form rating of each show
+     * @param sortType set the sort order
+     * @return List Object of shows
+     */
+    public static List<ShowInput> computeVideosOfGenre(final List<ShowInput> shows,
+                                                       final String genre,
+                                                       final List<UserInputData> users,
+                                                       final String sortType) {
+        List<ShowInput> showsGenre = new ArrayList<>();
+
+        for (ShowInput show : shows) {
+            if (show.getGenres().contains(genre)) {
+                showsGenre.add(show);
+            }
+        }
+
+        ShowInput.computeRatingForArray(showsGenre, users);
+        if (sortType.equals(Constants.ASC)) {
+            showsGenre.sort((o1, o2) -> {
+                if (o1.rating != o2.rating) {
+                    return (int) (o1.rating - o2.rating);
+                }
+                return o1.getTitle().compareTo(o2.getTitle());
+            });
+        } else {
+            showsGenre.sort((o1, o2) -> {
+                if (o1.rating != o2.rating) {
+                    return (int) (o2.rating - o1.rating);
+                }
+                return o1.title.compareTo(o2.title);
+            });
+        }
+        return showsGenre;
+    }
 }

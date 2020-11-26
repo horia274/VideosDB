@@ -211,6 +211,40 @@ public final class Main {
                         message = Constants.NO_BEST_UNSEEN;
                     }
                 }
+
+                if (action.getType().equals(Constants.POPULAR)) {
+                    UserInputData user = UserInputData.containsUsername(users, action.getUsername());
+                    if (user == null || user.getSubscriptionType().equals(Constants.BASIC)) {
+                        message = Constants.NO_POPULAR;
+                    } else {
+                        List<Object> listPopularObjects = ShowInput.computePopularGenres(shows, users);
+                        Map<String, List<String>> genresWithShows = (Map<String, List<String>>) listPopularObjects.get(0);
+                        List<String> popularGenres = (List<String>) listPopularObjects.get(1);
+                        message = user.popularVideoForGenre(genresWithShows, popularGenres);
+                    }
+                }
+
+                if (action.getType().equals(Constants.FAVORITE)) {
+                    UserInputData user = UserInputData.containsUsername(users, action.getUsername());
+                    if (user == null || user.getSubscriptionType().equals(Constants.BASIC)) {
+                        message = Constants.NO_FAVORITE;
+                    } else {
+                        List<ShowInput> sortedShows = new ArrayList<>(shows);
+                        ShowInput.computeCountFavoriteForArray(sortedShows, users);
+                        ShowInput.sortVideosByFavorites(sortedShows, shows, Constants.DESC);
+                        message = user.favoriteVideoUnseen(sortedShows, shows);
+                    }
+                }
+
+                if (action.getType().equals(Constants.SEARCH)) {
+                    UserInputData user = UserInputData.containsUsername(users, action.getUsername());
+                    if (user == null || user.getSubscriptionType().equals(Constants.BASIC)) {
+                        message = Constants.NO_SEARCH;
+                    } else {
+                        List<ShowInput> showsOfGenre = ShowInput.computeVideosOfGenre(shows, action.getGenre(), users, "asc");
+                        message = user.searchVideosOfGenre(showsOfGenre);
+                    }
+                }
             }
             arrayResult.add(fileWriter.writeFile(action.getActionId(), message));
         }
