@@ -1,5 +1,7 @@
 # VideosDB
 
+[**Link Repo**](https://github.com/horia274/VideosDB.git)
+
 Parcurg lista de actiuni, **comenzi, query-uri, recomandari** si efectuez
 operaritiile respective.
 
