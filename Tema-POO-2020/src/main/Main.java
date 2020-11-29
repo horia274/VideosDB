@@ -23,10 +23,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * The entry point to this homework. It runs the checker that tests your implementation.
@@ -218,7 +218,9 @@ public final class Main {
                         message = Constants.NO_POPULAR;
                     } else {
                         List<Object> listPopularObjects = ShowInput.computePopularGenres(shows, users);
+                        // noinspection unchecked
                         Map<String, List<String>> genresWithShows = (Map<String, List<String>>) listPopularObjects.get(0);
+                        // noinspection unchecked
                         List<String> popularGenres = (List<String>) listPopularObjects.get(1);
                         message = user.popularVideoForGenre(genresWithShows, popularGenres);
                     }
@@ -246,6 +248,8 @@ public final class Main {
                     }
                 }
             }
+
+            // noinspection unchecked
             arrayResult.add(fileWriter.writeFile(action.getActionId(), message));
         }
         fileWriter.closeJSON(arrayResult);
