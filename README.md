@@ -1,7 +1,12 @@
 # VideosDB
 
-Parcurg lista de actiuni, **comenzi, query-uri, recomandari** si efectuez
-operaritiile respective.
+## Enunt
+
+Este vorba despre o aplicatie de filme asemanatoare cu **Netflix**, care contine 
+**filme**, **seriale** si **utilizatori**, cei din urma putand sa efectueze divere actiuni,
+**comenzi, query-uri, recomandari**. Mai multe detalii despre proiect se pot gasi [aici](https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/tema).
+In cele ce urmeaza, voi explica functionalitatea aplicatiei si modul de implementare
+a actiunilor.
 
 ## Command
 Din lista de useri, il gasesc pe acela care are username-ul cel din input-ul
